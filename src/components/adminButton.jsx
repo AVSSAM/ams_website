@@ -6,7 +6,7 @@ class AdminButton extends Component {
 
     render() {
 
-        let url = 'http://localhost:3000/'; 
+        let url = ''; 
         if(this.props.val === '1'){
             url += 'stdreg'; 
         }
