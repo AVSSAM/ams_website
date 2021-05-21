@@ -1,44 +1,65 @@
-.cc-card {
+.llc-card {
   display: grid;
-  grid-template-columns: 30% 70%;
+  grid-template-columns: 30% 30% 20% 20%;
   background-color: rgba(255, 255, 255, 0.4);
   border-radius: 5px;
   justify-content: center;
+  align-content: center;
   box-shadow: 4px 4px 8px -3px rgba(163, 71, 71, 0.15);
-  width: 37%;
+  width: 350px;
   margin: 10px;
   text-decoration: none;
   color: black;
   height: 120px;
 }
 
-.cc-avatar {
+.llc-card :hover {
+  cursor: pointer;
+}
+
+.llc-para {
+  position: relative;
+  top: 10px;
+  left: 7px;
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.llc-avatar {
   align-items: center;
   justify-content: center;
   display: flex;
   padding: 15px 0 15px 15px;
 }
 
-.cc-image {
+.llc-image {
   width: 60px;
   height: auto;
 }
 
-.cc-content-container {
+.llc-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.llc-content-container {
   display: flex;
   flex-direction: column;
 
   padding: 20px;
 }
 
-.cc-title {
+.llc-title {
   margin: 0 0 5px 0;
   font-weight: bold;
   padding-bottom: 5px;
   padding-top: 7px;
 }
 
-.cc-content {
+.llc-content {
   font-size: 0.8em;
   margin: 0;
 }
@@ -59,5 +80,4 @@ a:hover {
   position: relative;
   margin-left: 170px;
   top: 100px;
-  margin-bottom: 10%;
 }

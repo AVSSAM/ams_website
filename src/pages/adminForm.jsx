@@ -133,6 +133,14 @@
                                 isLoading:false
                             })
                         }
+                        else if(e.response.status===400){
+                        
+                            setLoading({
+    
+                                errorMsg:e.response.data.errors,
+                                isLoading:false
+                            })
+                        }
                     })
             }
             
@@ -154,7 +162,7 @@
             />
                 
 
-                <AdminForm onSubmit={handleSubmit}>
+                <AdminForm onSubmit={handleSubmit} >
                     <Grid container>
                         <Grid item>
                             <Controls.Input
@@ -173,7 +181,8 @@
                                 error={errors.email}
                             />
                         
-                            <div>
+                            <div className="adminReg-outer-buttons">
+								<div>
                                 <Controls.Button
                                     type="submit"
                                     text = {
@@ -188,6 +197,7 @@
                                     text="Reset"
                                     color="default"
                                     onClick={resetForm} />
+									</div>
                             </div>
                         </Grid>
                     </Grid>
