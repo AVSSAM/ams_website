@@ -34,7 +34,6 @@ class LecturerCard extends Component {
                   variant="outlined"
                   color="secondary"
                   startIcon={<PeopleOutlineIcon></PeopleOutlineIcon>}
-                  href = "/studentgroups"
                 >
                   Student Groups
                 </Button>

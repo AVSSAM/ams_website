@@ -125,8 +125,6 @@ export default function EmployeeForm() {
 
             }
 
-            console.log(data)
-
             
            const auth = "Bearer "+ localStorage.getItem('token');
 
@@ -139,7 +137,10 @@ export default function EmployeeForm() {
                     function (response){
                         //callback function
                         console.log(response.data);
-                        callBack(response.data);
+                        console.log(response.data.Student)
+                        console.log(response.data.msg)
+
+                       callBack(response.data);
                     }
                 ).catch(e =>{
 
@@ -157,17 +158,7 @@ export default function EmployeeForm() {
                             isLoading:false
                         })
                     }
-
-                    else if(e.response.status===400){
-                        
-                        setLoading({
-
-                            errorMsg:e.response.data.errors,
-                            isLoading:false
-                        })
-                    }
-                }
-            )
+                })
         }
         
     }
@@ -186,7 +177,7 @@ export default function EmployeeForm() {
                 text = {errorObj.errorMsg}
             />
     
-            <Form  onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit}>
                 <Grid container>
                     <Grid item xs={6}>
                         <Controls.Input
@@ -249,7 +240,7 @@ export default function EmployeeForm() {
                         />
 
 
-						<div className = "stdRg-button-outer">
+
                         <div>
                             <Controls.Button
                                 type="submit"
@@ -265,7 +256,6 @@ export default function EmployeeForm() {
                                 color="default"
                                 onClick={resetForm} />
                         </div>
-						</div>
                     </Grid>
                 </Grid>
             </Form>

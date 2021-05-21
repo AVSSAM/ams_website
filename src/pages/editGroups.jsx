@@ -6,88 +6,35 @@ import StudentCard from '../components/studentCard'
 import bgImage from '../images/bg4.jpg'
 import '../css/home.css'
 import '../css/editGroups.css'
-import axios from 'axios'
 import { withRouter } from 'react-router';
-import Controls from "../components/controls/Controls";
-import Navbar from 'react-bootstrap/Navbar'
-import Nav from 'react-bootstrap/Nav'
-import Footer from '../components/footer';
-
-const GET_GROUP_NAMES_URI = "/groups/all/students"
 
 class EditGroups extends Component {
-
-    constructor(props){
-        super(props);
-
-    }
-
-    
     
     state = {  
         searchWord:null,
         numberList:[],
-        eNumbers:false,
-        msg:'',
-        sev:''
-        
-    }
-
-   /* componentDidMount(){
-        this.setState({searchWord:''});
-        this.setState({numberList:['E/16/242','E/16/268','E/15/366','E/17/226']});
-        this.setState({eNumbers:['E/16/243','E/16/267','E/16/367','E/16/225','E/16/229']});
-    }*/
-
-    onSearchValueChanged = e => {
-        this.setState({searchWord : e.target.value});
-
-        
+        eNumbers:[],
     }
 
     componentDidMount(){
-        
-        const auth = "Bearer "+ localStorage.getItem('token');
-        const data = {groupName : localStorage.getItem("clickedG")}
-
-        axios.post(GET_GROUP_NAMES_URI,data, {
-            headers: {
-                'Authorization': auth
-            }
-            })
-            .then(
-                (res)=>{
-                    console.log(res)
-                    this.setState({eNumbers:res.data.students})
-                }
-            )
-            .catch(e=>{
-                console.log(e);
-            })
+        this.setState({searchWord:''});
+        this.setState({numberList:['E/16/242','E/16/268','E/15/366','E/17/226']});
+        this.setState({eNumbers:['E/16/243','E/16/267','E/16/367','E/16/225','E/16/229']});
     }
 
-
-    handleCallback = (childData) =>{
-        this.setState({msg:childData.msg,
-         sev:childData.sev});
+    onSearchValueChanged = e => {
+        this.setState({searchWord : e.target.value});
     }
-
 
 
 
     render() { 
-        return this.state.eNumbers && (  
+        return (  
             <React.Fragment>
-
-                <NavBar pageName={localStorage.getItem("clickedG").toUpperCase()} />
+                <NavBar pageName={this.props.match.params.id.toUpperCase()} />
                 <img src={bgImage} className="homeloginImg"></img>
 
-
-
-
-                            
-
-                <div className="edtgps-search" style={{marginBottom:"5%"}}>
+                <div className="edtgps-search">
                     <div className="edtgps-search-outer">
                         <TextField id="outlined-search"
                         label="Student Id" 
@@ -99,19 +46,11 @@ class EditGroups extends Component {
                     </div>
                 </div>
 
-                <Controls.MsgTabGroups
-                        severity={this.state.sev} 
-                        text ={this.state.msg}
-                />
-              
-
-                <div className="edtgps-studentList-outer" style={{marginTop:"0px"}}>
+                <div className="edtgps-studentList-outer">
                     <div className="edtgps-studentList">
-                        {this.state.eNumbers.map(eNumber => <StudentCard eNbr={eNumber} grpName={localStorage.getItem("clickedG")} handleBack={this.handleCallback}></StudentCard>)}
+                        {this.state.eNumbers.map(eNumber => <StudentCard eNbr={eNumber}></StudentCard>)}
                     </div>
                 </div>
-
-                <Footer/>
             </React.Fragment>
         );
     }

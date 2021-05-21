@@ -6,7 +6,6 @@ import SingleStuEvent from "../components/singleStuEvent";
 import "../css/home.css";
 import bgImage from "../images/bg4.jpg";
 import axios from "axios";
-import Footer from "../components/footer";
 
 let FIND_STU_SCHEDULE_URL = "/schedule/findscheduledetailsbystudent/";
 
@@ -84,7 +83,7 @@ class TimeTable extends React.Component {
       <React.Fragment>
         <NavBar pageName="Time table"></NavBar>
         {this.state.loading === true ? (
-          <div style={{marginBottom:"10%"}}>
+          <div>
             <img src={bgImage} className="homeloginImg"></img>
             <div>
               <br />
@@ -120,11 +119,10 @@ class TimeTable extends React.Component {
             </div>
           </div>
         ) : (
-          <div style={{marginBottom:"10%"}}>
+          <div>
             <p>Still Loading</p>
           </div>
         )}
-        <Footer/>
       </React.Fragment>
     );
   }

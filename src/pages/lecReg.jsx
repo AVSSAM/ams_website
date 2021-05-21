@@ -3,17 +3,13 @@ import LecForm from "./lecForm";
 import PageHeader from "../components/PageHeader";
 import PeopleOutlineTwoToneIcon from '@material-ui/icons/PeopleOutlineTwoTone';
 import { Paper,makeStyles } from '@material-ui/core';
-import NavBar from "../components/navbar";
-import bgImage from '../images/bg4.jpg'
-import Footer from '../components/footer'
-import "../css/lcReg.css"
 
 
 const useStyles = makeStyles(theme => ({
     pageContent: {
-        align:"center",
+        margin: theme.spacing(5),
         padding: theme.spacing(3),
-        backgroundColor: 'transparent',
+        marginLeft:"10%"
     }
 }))
 
@@ -23,21 +19,14 @@ export default function Lecs() {
 
     return (
         <div>
-
-            <NavBar pageName="Lecturer Registration" />
-            <img src={bgImage} className="homeloginImg"></img>
-			<div className="lcReg-outer">
-				<div className="lcReg-inner">
-					<PageHeader
-						title="Lecturer Registration"
-						icon={<PeopleOutlineTwoToneIcon fontSize="large" />}
-					/>
-					<Paper className={classes.pageContent}>
-						<LecForm />
-					</Paper>
-				</div>
-			</div>
-            <Footer/>
+          
+            <PageHeader
+                title="Lecturer Registration"
+                icon={<PeopleOutlineTwoToneIcon fontSize="large" />}
+            />
+            <Paper className={classes.pageContent}>
+                <LecForm />
+            </Paper>
             
         </div>
     )

@@ -4,10 +4,7 @@ import { Checkbox } from "@material-ui/core";
 import { Container } from "@material-ui/core";
 import axios from "axios";
 import { Redirect } from "react-router";
-import { Grid } from "@material-ui/core";
-import { TextField } from '@material-ui/core';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+
 const COURSE_REGISTRATION_URL = "/courses/registration/add";
 
 class CourseRegistrationForm extends Component {
@@ -40,7 +37,8 @@ class CourseRegistrationForm extends Component {
   generateCourseCards = () => {
     if (this.props.courses && this.props.courses.length > 0) {
       return (
-        <Grid item>
+        <div>
+          <Container maxWidth="sm">
             <ul>
               {this.props.courses.map((course) => (
                 <li>
@@ -54,7 +52,8 @@ class CourseRegistrationForm extends Component {
                 </li>
               ))}
             </ul>
-        </Grid>
+          </Container>
+        </div>
       );
     } else {
       return <div></div>;

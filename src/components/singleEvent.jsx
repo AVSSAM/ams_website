@@ -7,13 +7,11 @@ import axios from "axios";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
-import PopOver from "../components/popOver";
-import FormHelperText from "@material-ui/core/FormHelperText";
+import PopOver from '../components/popOver'
 
 let DELETE_SCHEDULE_BY_ID_URL = "/schedule/delete/";
 let FIND_LEC_SCHEDULE_URL = "/schedule/findscheduledetailsbylecturer/";
-const UPDATE_SCHEDULE_URL = "/schedule/updatescheduledetails";
-
+const UPDATE_SCHEDULE_URL = '/schedule/updatescheduledetails';
 const useStyles = (theme) => ({
   typography: {
     padding: theme.spacing(2),
@@ -23,10 +21,6 @@ const useStyles = (theme) => ({
       margin: theme.spacing(1),
       width: "25ch",
     },
-  },
-  helperText: {
-    color: "red",
-    fontSize: ".8em",
   },
 });
 
@@ -44,23 +38,12 @@ class SingleEvent extends Component {
     anchorEl: null,
     isDeleted: false,
     courseId: "",
-    courseIdError: "",
     roomId: "",
-    roomIdError: "",
     labOrLecture: "",
-    labOrLectureError: "",
-    workDone: false,
+    workDone:false
   };
 
   updateField = (event) => {
-    console.log("new_event = ", event.target);
-    console.log("new_current = ", this.state.courseId);
-    let error = event.target.name + "Error";
-    if (event.target.value === "") {
-      this.setState({ [error]: "This field is required." });
-    } else {
-      this.setState({ [error]: "" });
-    }
     this.setState({ [event.target.name]: event.target.value });
   };
 
@@ -72,30 +55,6 @@ class SingleEvent extends Component {
     this.setState({ anchorEl: null });
   };
 
-  validate = () => {
-    let isError = false;
-    const errors = {};
-    if (this.state.courseId === "") {
-      isError = true;
-      errors.courseIdError = "This field is required.";
-    }
-    if (this.state.roomId === "") {
-      isError = true;
-      errors.roomIdError = "This field is required.";
-    }
-    if (this.state.labOrLecture === "") {
-      isError = true;
-      errors.labOrLectureError = "This field is required.";
-    }
-    if (isError) {
-      this.setState({
-        ...this.state,
-        ...errors,
-      });
-    }
-    return isError;
-  };
-
   sendReq = () => {
     console.log("sendreq");
     //close the popped form
@@ -105,45 +64,32 @@ class SingleEvent extends Component {
       scheduleId: this.props.scheduleId,
       courseId: this.state.courseId,
       roomId: this.state.roomId,
-      labOrLecture: this.state.labOrLecture,
+      labOrLecture: this.state.labOrLecture
     };
-    console.log("sendreq data = ", data);
-    //check for errors
-    const error = this.validate();
-    if (!error) {
-      //collect request data
-      let data = {
-        scheduleId: this.props.scheduleId,
-        courseId: this.state.courseId,
-        roomId: this.state.roomId,
-        labOrLecture: this.state.labOrLecture,
-      };
-
-      //changes in current page
-      /*this.props.updateSingleEvent({
+    //changes in current page
+    /*this.props.updateSingleEvent({
       result: data,
       scheduleId: this.props.scheduleId,
       dayIndex: this.props.dayIndex,
     });*/
 
-      //put request to backend server
-      const auth = "Bearer " + localStorage.getItem("token");
-      console.log("update url = ", UPDATE_SCHEDULE_URL);
-      axios
-        .put(UPDATE_SCHEDULE_URL, data, {
-          headers: {
-            Authorization: auth,
-          },
-        })
-        .then((response) => {
-          console.log("send data = ", data);
-          console.log("update response data = ", response.data);
-          this.displayUpdates();
-        })
-        .catch((error) => {
-          console.log("error =", error);
-        });
-    }
+    //put request to backend server
+    const auth = "Bearer " + localStorage.getItem("token");
+    console.log("update url = ", UPDATE_SCHEDULE_URL);
+    axios
+      .put(UPDATE_SCHEDULE_URL, data ,{
+        headers: {
+          Authorization: auth,
+        },
+      })
+      .then((response) => {
+        console.log("update response data = ", response.data);
+        this.displayUpdates()
+      })
+      .catch((error) => {
+        console.log("error =", error);
+      });
+    
   };
 
   deleteReq = () => {
@@ -168,46 +114,54 @@ class SingleEvent extends Component {
       })
       .then((response) => {
         console.log("response data = ", response.data);
-        this.displayUpdates();
+        this.displayUpdates()
       })
       .catch((error) => {
         console.log("error =", error);
       });
   };
 
-  displayUpdates = () => {
-    console.log("work started");
+  displayUpdates = ()=>{
+
+    console.log("work started")
 
     const auth = "Bearer " + localStorage.getItem("token");
 
-    FIND_LEC_SCHEDULE_URL += localStorage.getItem("lid");
+    FIND_LEC_SCHEDULE_URL += localStorage.getItem("lid"); 
 
     axios
-      .get(FIND_LEC_SCHEDULE_URL, {
-        headers: {
-          Authorization: auth,
-        },
-      })
-      .then((response) => {
-        console.log("response data = ", response.data);
-        localStorage.setItem("timeTable", JSON.stringify(response.data));
-        console.log("work done");
-        this.setState({ workDone: true });
-      })
-      .catch((error) => {
-        console.log("error =", error);
-      });
-  };
+    .get(FIND_LEC_SCHEDULE_URL, {
+      headers: {
+        Authorization: auth,
+      },
+    })
+    .then((response) => {
+      console.log('response data = ',response.data);
+      localStorage.setItem("timeTable",JSON.stringify(response.data));
+      console.log("work done")
+      this.setState({workDone:true})
+     
+      
+    })
+    .catch((error) => {
+      console.log("error =", error);
+    });
 
-  displayPopOver = (info) => {
-    if (this.state.workDone === true) {
+
+  }
+
+  displayPopOver = (info)=> {
+
+    if(this.state.workDone === true){
+          
       return (
-        <div>
-          <PopOver info={info}></PopOver>
-        </div>
-      );
+              <div>
+                <PopOver info={info}></PopOver>
+             </div>
+             )
     }
-  };
+
+  }
 
   render() {
     const open = Boolean(this.state.anchorEl);
@@ -247,7 +201,7 @@ class SingleEvent extends Component {
             horizontal: "center",
           }}
         >
-          <form className={classes.root} error>
+          <form className={classes.root} noValidate autoComplete="off">
             <InputLabel htmlFor="selectCourseLabel">Course</InputLabel>
             <Select
               labelId="selectCourseLabel"
@@ -264,7 +218,7 @@ class SingleEvent extends Component {
                 <MenuItem value={c.courseId}>{c.courseName}</MenuItem>
               ))}
             </Select>
-            <FormHelperText error>{this.state.courseIdError}</FormHelperText>
+            <br></br>
 
             <InputLabel htmlFor="selectLRLabel">Lecture Room</InputLabel>
             <Select
@@ -282,7 +236,7 @@ class SingleEvent extends Component {
                 <MenuItem value={lr.roomId}>{lr.roomName}</MenuItem>
               ))}
             </Select>
-            <FormHelperText error>{this.state.roomIdError}</FormHelperText>
+            <br></br>
 
             <InputLabel htmlFor="selectLabOrLectureLabel">
               Lab or Lecture
@@ -301,15 +255,13 @@ class SingleEvent extends Component {
               <MenuItem value="0">Lecture</MenuItem>
               <MenuItem value="1">Lab</MenuItem>
             </Select>
-            <FormHelperText error>
-              {this.state.labOrLectureError}
-            </FormHelperText>
+            <br></br>
 
             <div style={{ display: "flex", justifyContent: "center", gap: 8 }}>
               <Button
                 onClick={this.sendReq}
                 variant="contained"
-                color="primary"
+                color="secondary"
               >
                 Submit
               </Button>
@@ -321,6 +273,7 @@ class SingleEvent extends Component {
                 Delete
               </Button>
               <br></br>
+              
             </div>
           </form>
           <div style={{ display: "flex", justifyContent: "center", gap: 8 }}>
