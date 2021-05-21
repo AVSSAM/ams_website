@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "../css/courseRegCard.css";
 import { Checkbox } from "@material-ui/core";
 import { Container } from "@material-ui/core";
 import axios from "axios";

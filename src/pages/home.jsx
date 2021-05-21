@@ -71,7 +71,7 @@ class Home extends Component {
     if(this.state.loading1 === true || this.state.loading2 === true) return <LoadingComponent></LoadingComponent>
 
     return (
-      <>
+      <div>
       <div className="home-outer">
         <NavBar pageName="Home" />
         <img src={bgImage} className="homeloginImg"></img>
@@ -80,7 +80,7 @@ class Home extends Component {
 		<UserCard data={[localStorage.getItem("sfn"), localStorage.getItem("sen")]} />
      </div>
      <Footer/>
-     </>
+     </div>
     );
   }
 }
